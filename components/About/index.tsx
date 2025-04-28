@@ -67,13 +67,12 @@ const About = () => {
               </span>
               <h2 className="relative mb-6 text-3xl font-bold text-black dark:text-white xl:text-hero">
                 A Complete Solution for
-                <span className="relative inline-block before:absolute before:bottom-2.5 before:left-0 before:-z-1 before:h-3 before:w-full before:bg-titlebg dark:before:bg-titlebgdark">
-                  SaaS Startup
+                <span className="relative inline-block before:absolute before:bottom-1 before:left-0 before:-z-1 before:h-3 before:w-full before:bg-titlebg dark:before:bg-titlebgdark text-2xl">
+                  Task Management & Team Collaboration
                 </span>
               </h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                ultricies lacus non fermentum ultrices. Fusce consectetur le.
+              PlanIT is a powerful, modern task management platform crafted to help individuals and teams organize work, track progress, and collaborate with ease.
               </p>
 
               <div className="mt-7.5 flex items-center gap-5">

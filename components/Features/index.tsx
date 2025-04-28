@@ -13,11 +13,9 @@ const Feature = () => {
           {/* <!-- Section Title Start --> */}
           <SectionHeader
             headerInfo={{
-              title: "SOLID FEATURES",
-              subtitle: "Core Features of Solid",
-              description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-            convallis tortor eros. Donec vitae tortor lacus. Phasellus aliquam
-            ante in maximus.`,
+              title: "PLANIT FEATURES",
+              subtitle: "Core Features of Planit",
+              description: `Complete task management solution designed to help individuals and teams organize, track, and execute their work effortlessly. From personal to team tasks, PlanIT keeps everything aligned, on time, and under control.`,
             }}
           />
           {/* <!-- Section Title End --> */}

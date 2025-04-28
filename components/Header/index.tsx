@@ -1,179 +1,195 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-
-import ThemeToggler from "./ThemeToggler";
 import menuData from "./menuData";
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "./resizable-navbar";
+import { useState } from "react";
+import ThemeToggler from "./ThemeToggler";
 
-const Header = () => {
-  const [navigationOpen, setNavigationOpen] = useState(false);
-  const [dropdownToggler, setDropdownToggler] = useState(false);
-  const [stickyMenu, setStickyMenu] = useState(false);
+export function Header() {
+  const navItems = [
+    {
+      name: "Features",
+      link: "#features",
+    },
+    {
+      name: "Pricing",
+      link: "#pricing",
+    },
+    {
+      name: "Contact",
+      link: "#contact",
+    },
+  ];
 
-  const pathUrl = usePathname();
-
-  // Sticky menu
-  const handleStickyMenu = () => {
-    if (window.scrollY >= 80) {
-      setStickyMenu(true);
-    } else {
-      setStickyMenu(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleStickyMenu);
-  });
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed left-0 top-0 z-99999 w-full py-7 ${
-        stickyMenu
-          ? "bg-white !py-4 shadow transition duration-100 dark:bg-black"
-          : ""
-      }`}
-    >
-      <div className="relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0">
-        <div className="flex w-full items-center justify-between xl:w-1/4">
-          <a href="/">
-            <Image
-              src="/images/logo/logo-dark.svg"
-              alt="logo"
-              width={119.03}
-              height={30}
-              className="hidden w-full dark:block"
-            />
-            <Image
-              src="/images/logo/logo-light.svg"
-              alt="logo"
-              width={119.03}
-              height={30}
-              className="w-full dark:hidden"
-            />
-          </a>
-
-          {/* <!-- Hamburger Toggle BTN --> */}
-          <button
-            aria-label="hamburger Toggler"
-            className="block xl:hidden"
-            onClick={() => setNavigationOpen(!navigationOpen)}
-          >
-            <span className="relative block h-5.5 w-5.5 cursor-pointer">
-              <span className="absolute right-0 block h-full w-full">
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-[0] duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!w-full delay-300" : "w-0"
-                  }`}
-                ></span>
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-150 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "delay-400 !w-full" : "w-0"
-                  }`}
-                ></span>
-                <span
-                  className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-black delay-200 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!w-full delay-500" : "w-0"
-                  }`}
-                ></span>
-              </span>
-              <span className="du-block absolute right-0 h-full w-full rotate-45">
-                <span
-                  className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-black delay-300 duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!h-0 delay-[0]" : "h-full"
-                  }`}
-                ></span>
-                <span
-                  className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-black duration-200 ease-in-out dark:bg-white ${
-                    !navigationOpen ? "!h-0 delay-200" : "h-0.5"
-                  }`}
-                ></span>
-              </span>
-            </span>
-          </button>
-          {/* <!-- Hamburger Toggle BTN --> */}
-        </div>
-
-        {/* Nav Menu Start   */}
-        <div
-          className={`invisible h-0 w-full items-center justify-between xl:visible xl:flex xl:h-auto xl:w-full ${
-            navigationOpen &&
-            "navbar !visible mt-4 h-auto max-h-[400px] rounded-md bg-white p-7.5 shadow-solid-5 dark:bg-blacksection xl:h-auto xl:p-0 xl:shadow-none xl:dark:bg-transparent"
-          }`}
-        >
-          <nav>
-            <ul className="flex flex-col gap-5 xl:flex-row xl:items-center xl:gap-10">
-              {menuData.map((menuItem, key) => (
-                <li key={key} className={menuItem.submenu && "group relative"}>
-                  {menuItem.submenu ? (
-                    <>
-                      <button
-                        onClick={() => setDropdownToggler(!dropdownToggler)}
-                        className="flex cursor-pointer items-center justify-between gap-3 hover:text-primary"
-                      >
-                        {menuItem.title}
-                        <span>
-                          <svg
-                            className="h-3 w-3 cursor-pointer fill-waterloo group-hover:fill-primary"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 512 512"
-                          >
-                            <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
-                          </svg>
-                        </span>
-                      </button>
-
-                      <ul
-                        className={`dropdown ${dropdownToggler ? "flex" : ""}`}
-                      >
-                        {menuItem.submenu.map((item, key) => (
-                          <li key={key} className="hover:text-primary">
-                            <Link href={item.path || "#"}>{item.title}</Link>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  ) : (
-                    <Link
-                      href={`${menuItem.path}`}
-                      className={
-                        pathUrl === menuItem.path
-                          ? "text-primary hover:text-primary"
-                          : "hover:text-primary"
-                      }
-                    >
-                      {menuItem.title}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="mt-7 flex items-center gap-6 xl:mt-0">
-            <ThemeToggler />
-
-            <Link
-              href="https://github.com/NextJSTemplates/solid-nextjs"
-              className="text-regular font-medium text-waterloo hover:text-primary"
-            >
-              GitHub Repo 🌟
-            </Link>
-
-            <Link
-              href="https://nextjstemplates.com/templates/solid"
-              className="flex items-center justify-center rounded-full bg-primary px-7.5 py-2.5 text-regular text-white duration-300 ease-in-out hover:bg-primaryho"
-            >
-              Get Pro 🔥
-            </Link>
+    <div className="relative w-full">
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo />
+          <NavItems
+            items={menuData.map((item) => ({
+              title: item.title,
+              path: item.path || "",
+              submenu: item.submenu?.map((sub) => ({
+                title: sub.title,
+                path: sub.path || "",
+              })),
+            }))}
+          />
+          <div className=" z-999 flex items-center gap-4">
+            <ThemeToggler/>
+            <NavbarButton variant="secondary">Login</NavbarButton>
           </div>
-        </div>
+        </NavBody>
+
+        {/* Mobile Navigation */}
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {navItems.map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full"
+              >
+                Login
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
+      </Navbar>
+      {/* <DummyContent /> */}
+
+      {/* Navbar */}
+    </div>
+  );
+}
+
+const DummyContent = () => {
+  return (
+    <div className="container mx-auto p-8 pt-24">
+      <h1 className="mb-4 text-center text-3xl font-bold">
+        Check the navbar at the top of the container
+      </h1>
+      <p className="mb-10 text-center text-sm text-zinc-500">
+        For demo purpose we have kept the position as{" "}
+        <span className="font-medium">Sticky</span>. Keep in mind that this
+        component is <span className="font-medium">fixed</span> and will not
+        move when scrolling.
+      </p>
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        {[
+          {
+            id: 1,
+            title: "The",
+            width: "md:col-span-1",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 2,
+            title: "First",
+            width: "md:col-span-2",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 3,
+            title: "Rule",
+            width: "md:col-span-1",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 4,
+            title: "Of",
+            width: "md:col-span-3",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 5,
+            title: "F",
+            width: "md:col-span-1",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 6,
+            title: "Club",
+            width: "md:col-span-2",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 7,
+            title: "Is",
+            width: "md:col-span-2",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 8,
+            title: "You",
+            width: "md:col-span-1",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 9,
+            title: "Do NOT TALK about",
+            width: "md:col-span-2",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+          {
+            id: 10,
+            title: "F Club",
+            width: "md:col-span-1",
+            height: "h-60",
+            bg: "bg-neutral-100 dark:bg-neutral-800",
+          },
+        ].map((box) => (
+          <div
+            key={box.id}
+            className={`${box.width} ${box.height} ${box.bg} flex items-center justify-center rounded-lg p-4 shadow-sm`}
+          >
+            <h2 className="text-xl font-medium">{box.title}</h2>
+          </div>
+        ))}
       </div>
-    </header>
+    </div>
   );
 };
-
-// w-full delay-300
-
-export default Header;

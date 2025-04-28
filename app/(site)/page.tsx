@@ -14,10 +14,10 @@ import Blog from "@/components/Blog";
 import Testimonial from "@/components/Testimonial";
 
 export const metadata: Metadata = {
-  title: "Next.js Starter Template for SaaS Startups - Solid SaaS Boilerplate",
+  title: "Planit",
 
   // other metadata
-  description: "This is Home for Solid Pro"
+  description: "Task management software for teams"
 };
 
 export default function Home() {
