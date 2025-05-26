@@ -284,12 +284,19 @@ export const NavbarLogo = () => {
   return (
     <a href="/" className="z-999 flex justify-center items-center">
       <Image
-        src="/planit.png"
+        src="/Rchers_Black.png"
         alt="logo"
         width={119.03}
-        height={30}
-        className=" w-full block"
+        height={10}
+        className=" w-full dark:hidden"
       />
+      <Image
+              src="/Rchers_white.png"
+              alt="logo"
+              width={120}
+              height={10}
+              className="w-full hidden dark:block"
+            />
   </a>
   );
 };
